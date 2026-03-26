@@ -36,7 +36,9 @@ public class DeviceKeysConstants {
         SLEEP,
         LAST_APP,
         SPLIT_SCREEN,
-        KILL_APP;
+        KILL_APP,
+        PLAY_PAUSE_MUSIC,
+        SCREENSHOT;
 
         public static Action fromIntSafe(int id) {
             if (id < NOTHING.ordinal() || id > Action.values().length) {
@@ -62,4 +64,3 @@ public class DeviceKeysConstants {
     public static final int KEY_MASK_CAMERA = 0x20;
     public static final int KEY_MASK_VOLUME = 0x40;
 }
-
