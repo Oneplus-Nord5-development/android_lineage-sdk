@@ -1,6 +1,6 @@
 /*
  * SPDX-FileCopyrightText: 2015 The CyanogenMod Project
- * SPDX-FileCopyrightText: 2025 LineageOS Project
+ * SPDX-FileCopyrightText: The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
 
@@ -11,7 +11,7 @@ import android.os.ParcelUuid;
 import lineageos.app.NotificationGroup;
 import lineageos.app.Profile;
 
-/** {@hide} */
+/** @hide */
 interface IProfileManager
 {
     boolean setActiveProfile(in ParcelUuid profileParcelUuid);
