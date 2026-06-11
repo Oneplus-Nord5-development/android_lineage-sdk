@@ -2170,6 +2170,13 @@ public final class LineageSettings {
         public static final Validator HIDE_STATUS_BAR_IN_SCREENSHOT_VALIDATOR =
                 sBooleanValidator;
 
+        public static final String SCREENSHOT_CLIPBOARD_ONLY =
+                "screenshot_clipboard_only";
+
+        /** @hide */
+        public static final Validator SCREENSHOT_CLIPBOARD_ONLY_VALIDATOR =
+                sBooleanValidator;
+
         /**
          * Whether to enable taskbar.
          */
@@ -2370,6 +2377,8 @@ public final class LineageSettings {
                     CLICK_PARTIAL_SCREENSHOT_VALIDATOR);
             VALIDATORS.put(HIDE_STATUS_BAR_IN_SCREENSHOT,
                     HIDE_STATUS_BAR_IN_SCREENSHOT_VALIDATOR);
+            VALIDATORS.put(SCREENSHOT_CLIPBOARD_ONLY,
+                    SCREENSHOT_CLIPBOARD_ONLY_VALIDATOR);
             VALIDATORS.put(ENABLE_TASKBAR,
                     ENABLE_TASKBAR_VALIDATOR);
             VALIDATORS.put(__MAGICAL_TEST_PASSING_ENABLER,
