@@ -37,7 +37,7 @@ public class LineageDatabaseHelper extends SQLiteOpenHelper{
     private static final boolean LOCAL_LOGV = false;
 
     private static final String DATABASE_NAME = "lineagesettings.db";
-    private static final int DATABASE_VERSION = 26;
+    private static final int DATABASE_VERSION = 27;
 
     public static class LineageTableNames {
         public static final String TABLE_SYSTEM = "system";
@@ -375,6 +375,21 @@ public class LineageDatabaseHelper extends SQLiteOpenHelper{
             upgradeVersion = 26;
         }
 
+        if (upgradeVersion < 27) {
+            db.beginTransaction();
+            SQLiteStatement stmt = null;
+            try {
+                stmt = db.compileStatement("INSERT OR IGNORE INTO system(name,value) VALUES(?,?);");
+                loadBooleanSetting(stmt, LineageSettings.System.STATUS_BAR_DYNAMIC_ISLAND_LYRICS,
+                        R.bool.def_status_bar_dynamic_island_lyrics);
+                db.setTransactionSuccessful();
+            } finally {
+                if (stmt != null) stmt.close();
+                db.endTransaction();
+            }
+            upgradeVersion = 27;
+        }
+
         // *** Remember to update DATABASE_VERSION above!
         if (upgradeVersion != newVersion) {
             Log.wtf(TAG, "warning: upgrading settings database to version "
@@ -560,6 +575,9 @@ public class LineageDatabaseHelper extends SQLiteOpenHelper{
 
             loadBooleanSetting(stmt, LineageSettings.System.STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES,
                     R.bool.def_status_bar_dynamic_island_live_scores);
+
+            loadBooleanSetting(stmt, LineageSettings.System.STATUS_BAR_DYNAMIC_ISLAND_LYRICS,
+                    R.bool.def_status_bar_dynamic_island_lyrics);
 
             loadBooleanSetting(stmt, LineageSettings.System.HIDE_STATUS_BAR_IN_SCREENSHOT,
                     R.bool.def_hide_status_bar_in_screenshot);
