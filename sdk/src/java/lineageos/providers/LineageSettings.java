@@ -1010,6 +1010,31 @@ public final class LineageSettings {
                 sBooleanValidator;
 
         /**
+         * Source for live scores in the dynamic island.
+         * 0: Any / All apps
+         * 1: Google only
+         * 2: Non-Google / Open-source & Other apps only
+         * default: 0
+         */
+        public static final String STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES_SOURCE =
+                "status_bar_dynamic_island_live_scores_source";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES_SOURCE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(0, 2);
+
+        /**
+         * Pinned sports leagues and matches for Dynamic Island.
+         * JSON or comma-separated list of followed sports/leagues/events.
+         */
+        public static final String STATUS_BAR_DYNAMIC_ISLAND_PINNED_SPORTS =
+                "status_bar_dynamic_island_pinned_sports";
+
+        /** @hide */
+        public static final Validator STATUS_BAR_DYNAMIC_ISLAND_PINNED_SPORTS_VALIDATOR =
+                sAlwaysTrueValidator;
+
+        /**
          * Whether to show lyrics in the dynamic island.
          * default: false
          */
@@ -2245,6 +2270,10 @@ public final class LineageSettings {
                     STATUS_BAR_DYNAMIC_ISLAND_STOPWATCH_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES,
                     STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES_SOURCE,
+                    STATUS_BAR_DYNAMIC_ISLAND_LIVE_SCORES_SOURCE_VALIDATOR);
+            VALIDATORS.put(STATUS_BAR_DYNAMIC_ISLAND_PINNED_SPORTS,
+                    STATUS_BAR_DYNAMIC_ISLAND_PINNED_SPORTS_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_DYNAMIC_ISLAND_LYRICS,
                     STATUS_BAR_DYNAMIC_ISLAND_LYRICS_VALIDATOR);
             VALIDATORS.put(STATUS_BAR_AM_PM, STATUS_BAR_AM_PM_VALIDATOR);
