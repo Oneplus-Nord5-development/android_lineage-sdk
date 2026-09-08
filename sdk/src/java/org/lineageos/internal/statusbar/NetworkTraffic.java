@@ -82,9 +82,9 @@ public class NetworkTraffic extends TextView {
     private static final long AUTOHIDE_THRESHOLD_KILOBYTES = 8;
     private static final long AUTOHIDE_THRESHOLD_MEGABYTES = 80;
 
-    private final int mTextSizeSingle;
-    private final int mTextSizeSingleCompact;
-    private final int mTextSizeMulti;
+    private int mTextSizeSingle;
+    private int mTextSizeSingleCompact;
+    private int mTextSizeMulti;
     private final Handler mTrafficHandler;
     private final SettingsObserver mObserver;
 
@@ -469,6 +469,15 @@ public class NetworkTraffic extends TextView {
             resolver.registerContentObserver(LineageSettings.Secure.getUriFor(
                     LineageSettings.Secure.NETWORK_TRAFFIC_SHOW_UNITS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(LineageSettings.Secure.getUriFor(
+                    LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_SINGLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(LineageSettings.Secure.getUriFor(
+                    LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(LineageSettings.Secure.getUriFor(
+                    LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_MULTI),
+                    false, this, UserHandle.USER_ALL);
         }
 
         void unobserve() {
@@ -501,6 +510,21 @@ public class NetworkTraffic extends TextView {
         mShowUnits = LineageSettings.Secure.getInt(resolver,
                 LineageSettings.Secure.NETWORK_TRAFFIC_SHOW_UNITS, SHOW_UNITS_ON);
 
+        final Resources resources = getResources();
+        final int textSizeSingleSp = LineageSettings.Secure.getInt(resolver,
+                LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_SINGLE, 14);
+        final int textSizeSingleCompactSp = LineageSettings.Secure.getInt(resolver,
+                LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT, 10);
+        final int textSizeMultiSp = LineageSettings.Secure.getInt(resolver,
+                LineageSettings.Secure.NETWORK_TRAFFIC_TEXT_SIZE_MULTI, 8);
+
+        mTextSizeSingle = Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, textSizeSingleSp, resources.getDisplayMetrics()));
+        mTextSizeSingleCompact = Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, textSizeSingleCompactSp, resources.getDisplayMetrics()));
+        mTextSizeMulti = Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_SP, textSizeMultiSp, resources.getDisplayMetrics()));
+
         manageNetworkCallbacks();
 
         switch (mUnits) {
@@ -525,6 +549,7 @@ public class NetworkTraffic extends TextView {
         if (mMode != MODE_DISABLED) {
             updateTrafficDrawable();
         }
+        setText("");
         updateViewState();
     }
 
@@ -534,12 +559,14 @@ public class NetworkTraffic extends TextView {
 
     private void updateTrafficDrawable() {
         final int drawableResId;
-        if (mHideArrows
-                || mMode == MODE_UPSTREAM_ONLY
-                || mMode == MODE_DOWNSTREAM_ONLY) {
+        if (mHideArrows) {
             drawableResId = 0;
         } else if (mMode == MODE_UPSTREAM_AND_DOWNSTREAM) {
             drawableResId = R.drawable.stat_sys_network_traffic_updown;
+        } else if (mMode == MODE_UPSTREAM_ONLY) {
+            drawableResId = R.drawable.stat_sys_network_traffic_up;
+        } else if (mMode == MODE_DOWNSTREAM_ONLY) {
+            drawableResId = R.drawable.stat_sys_network_traffic_down;
         } else {
             drawableResId = 0;
         }

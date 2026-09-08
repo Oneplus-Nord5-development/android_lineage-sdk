@@ -3081,6 +3081,39 @@ public final class LineageSettings {
                 new InclusiveIntegerRangeValidator(0, 2);
 
         /**
+         * Network traffic single-line text size in sp
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_TEXT_SIZE_SINGLE =
+                "network_traffic_text_size_single";
+
+        /** @hide */
+        public static final Validator NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 40);
+
+        /**
+         * Network traffic single compact text size in sp
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT =
+                "network_traffic_text_size_single_compact";
+
+        /** @hide */
+        public static final Validator NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 40);
+
+        /**
+         * Network traffic multi-line text size in sp
+         * @hide
+         */
+        public static final String NETWORK_TRAFFIC_TEXT_SIZE_MULTI =
+                "network_traffic_text_size_multi";
+
+        /** @hide */
+        public static final Validator NETWORK_TRAFFIC_TEXT_SIZE_MULTI_VALIDATOR =
+                new InclusiveIntegerRangeValidator(1, 40);
+
+        /**
          * Trust warnings status
          *
          * Stores flags for each feature
@@ -3141,6 +3174,12 @@ public final class LineageSettings {
             VALIDATORS.put(NETWORK_TRAFFIC_HIDE_ARROWS, NETWORK_TRAFFIC_HIDE_ARROWS_VALIDATOR);
             VALIDATORS.put(NETWORK_TRAFFIC_UNITS, NETWORK_TRAFFIC_UNITS_VALIDATOR);
             VALIDATORS.put(NETWORK_TRAFFIC_SHOW_UNITS, NETWORK_TRAFFIC_SHOW_UNITS_VALIDATOR);
+            VALIDATORS.put(NETWORK_TRAFFIC_TEXT_SIZE_SINGLE,
+                    NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_VALIDATOR);
+            VALIDATORS.put(NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT,
+                    NETWORK_TRAFFIC_TEXT_SIZE_SINGLE_COMPACT_VALIDATOR);
+            VALIDATORS.put(NETWORK_TRAFFIC_TEXT_SIZE_MULTI,
+                    NETWORK_TRAFFIC_TEXT_SIZE_MULTI_VALIDATOR);
             VALIDATORS.put(TRUST_WARNINGS, TRUST_WARNINGS_VALIDATOR);
             VALIDATORS.put(VOLUME_PANEL_ON_LEFT, VOLUME_PANEL_ON_LEFT_VALIDATOR);
             VALIDATORS.put(LOCKSCREEN_MEDIA_METADATA, LOCKSCREEN_MEDIA_METADATA_VALIDATOR);
